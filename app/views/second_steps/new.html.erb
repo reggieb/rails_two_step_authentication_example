@@ -1,0 +1,7 @@
+<h1>Second Step</h1>
+
+<%= form_tag(second_steps_path) do %>
+  <%= label_tag(:foo, "Enter 'Foo':") %>
+  <%= text_field_tag(:foo) %>
+  <%= submit_tag('Proceed') %>
+<% end %>
