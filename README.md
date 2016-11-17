@@ -75,7 +75,7 @@ end
 ```
 
 Note that a second step token is being used to identify the user. We could use the user’s 
-`id` here, but then if the session is hacked, the hacker can guess then next user’s `id` 
+`id` here, but then if the session is hacked, the hacker can guess the next user’s `id` 
 which may add an attack vector to your app.
 
 Set up the user
@@ -101,23 +101,23 @@ end
 The Second Steps controller
 ---------------------------
 
-That last part of the process is to create an endpoint for `new_second_step_path`. I 
+The last part of the process is to create an endpoint for `new_second_step_path`. I 
 would start by creating a new controller:
 
 ```ruby
 rails g controller second_steps new
 ```
 
-Modify the route entry in config/routes.rb to:
+Modify the route entry in `config/routes.rb` to:
 
 ```ruby
 resources :second_steps, only: [:new, :create]
 ```
 
-The steps controller will have two actions: new will render the form with the second 
-step input field(s), and create will process that input.
+The steps controller will have two actions: `new` will render the form with the second 
+step input field(s), and `create` will process that input.
 
-However, the first thing to do in the controller is ensure the users is logged in 
+However, the first thing to do in the controller is ensure the user is logged in 
 (in case someone tries to enter the app at this point directly).
 
 ```ruby 
@@ -125,7 +125,7 @@ before_action :authenticate_user!
 ```
 
 This is an example of why it is better not to overwrite the `authenticate_user!` method – 
-so we can use it where we just need to ensure the user has complete just the first step 
+so we can use it where we need to ensure the user has complete just the first step 
 of the authentication.
 
 The `new` action can be fairly simple – I’ve used it to clear the session key, and render 
@@ -164,6 +164,6 @@ Other things to consider
 
 Currently, the authentication process always returns the user to root. If you need
 the user to be able to enter or return to your app at any point, we'd need to 
-capture the original intened url, and then redirect to that on successful completion
+capture the original intended url, and then redirect to that on successful completion
 of the `second_steps#create` step. Devise captures this information, so a method to
-grab the url from Devise and perhaps temporarily store it, would be needed.
+grab the url from Devise and perhaps temporarily store it, may be needed.
