@@ -1,16 +1,20 @@
-== Two step authentication - an example rails app
+Two step authentication - an example rails app
+==============================================
 
 How would I set up a rails app to have a second step in the authentication process. 
 That is, the user enters a password, and is then prompted to enter a second item 
 (a shared secret for example).
 
-=== Start with a tried and tested authentication gem
+Start with a tried and tested authentication gem
+------------------------------------------------
+
 I’ve used Devise a lot. It works well, and can be adapted for a wide range of scenarios. 
 There are other authentication gems that also work well. I’ll use Devise here, but as 
 I’m not going to modify the way Devise works, it should be fairly easy to use the 
 same two step strategy with another authentication gem.
 
-=== Step into the authentication process
+Step into the authentication process
+------------------------------------
 
 Typically, a developer enables authentication on a controller's actions by adding a 
 `before_action` hook to the controller. For Devise this will look like:
@@ -47,7 +51,8 @@ So with the new method in place, the controller `before_action` changes to:
 before_action authenticate_user_with_second_step!
 ```
 
-=== The second step
+The second step
+---------------
 
 So what do we need the `authentication_second_step!` method to do?
 
@@ -73,7 +78,8 @@ Note that a second step token is being used to identify the user. We could use t
 `id` here, but then if the session is hacked, the hacker can guess then next user’s `id` 
 which may add an attack vector to your app.
 
-=== Set up the user
+Set up the user
+---------------
 
 First we need to create an attribute to store the second step token.
 
@@ -92,7 +98,8 @@ def generate_second_step_token
 end
 ```
 
-=== The Second Steps controller
+The Second Steps controller
+---------------------------
 
 That last part of the process is to create an endpoint for `new_second_step_path`. I 
 would start by creating a new controller:
@@ -147,11 +154,13 @@ end
 
 And with that in place, we now have two step authentication.
 
-=== This app
+This app
+--------
 
 The code here is a very simple rails app, to which the steps above have been applied.
 
-=== Other things to consider
+Other things to consider
+------------------------
 
 Currently, the authentication process always returns the user to root. If you need
 the user to be able to enter or return to your app at any point, we'd need to 
