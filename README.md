@@ -150,3 +150,11 @@ And with that in place, we now have two step authentication.
 === This app
 
 The code here is a very simple rails app, to which the steps above have been applied.
+
+=== Other things to consider
+
+Currently, the authentication process always returns the user to root. If you need
+the user to be able to enter or return to your app at any point, we'd need to 
+capture the original intened url, and then redirect to that on successful completion
+of the `second_steps#create` step. Devise captures this information, so a method to
+grab the url from Devise and perhaps temporarily store it, would be needed.
