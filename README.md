@@ -42,7 +42,7 @@ There are two reasons why I think this is a better alternative:
     if require (as it will be later!)
 2.  It tells a developer that the `before_action` hook is like they’d normally expect, 
     but with something different going on. If we put the new method in the Application 
-    Controller, the develop should be able to identify the modification and understand 
+    Controller, the developer should be able to identify the modification and understand 
     what is going on.
 
 So with the new method in place, the controller `before_action` changes to:
@@ -59,7 +59,7 @@ So what do we need the `authentication_second_step!` method to do?
 1.  Ensure the user is identified – usually it will be called via 
     `authenticate_user_with_second_step!` but I would not rely on that, so I’d first 
     check the user in logged in.
-2.  Check whether the user has already successfully been though the second step, and if 
+2.  Check whether the user has already successfully been through the second step, and if 
     so let them proceed
 3.  Redirect the user to a second step form if they haven’t successfully completed this 
     step
